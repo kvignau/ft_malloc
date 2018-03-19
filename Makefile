@@ -17,7 +17,7 @@ C_DIR_MALLOC = srcs/
 O_DIR_MALLOC = obj/
 PRINTF = ft_printf/
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror #-fsanitize=address
 
 C_FILES_MALLOC = ft_malloc.c
 O_FILES_MALLOC = $(addprefix $(O_DIR_MALLOC),$(C_FILES_MALLOC:.c=.o))

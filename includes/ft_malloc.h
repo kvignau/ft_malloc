@@ -30,22 +30,40 @@
 typedef struct 		s_malloc
 {
 	int				last;
-	void			*ptr;
+	int				used;
 	size_t			size;
+	void			*ptr;
 	struct s_malloc	*next;
-	struct s_malloc	*prev;
+	// struct s_malloc	*prev;
 }					t_malloc;
 
 typedef struct 	s_block
 {
-	size_t			unused_size;
+	size_t			unused_end_size;
+	int				last;
 	t_malloc		*malloc;
+	t_malloc		*first;
+	// TO TEST
+	// t_malloc		*lastmalloc;
 	struct s_block	*next;
 	struct s_block	*prev;
 }					t_block;
 
+typedef struct 	s_alltypes
+{
+	t_block			*tiny;
+	t_block			*small;
+	t_block			*large;
+}					t_alltypes;
+
+t_alltypes			lst_types; 
+
 void				free(void *ptr);
-void				*malloc(size_t size);
+void				*ft_malloc(size_t size);
 void				*realloc(void *ptr, size_t size);
+
+void				*ft_find_space(t_block *malloc, size_t size);
+void				*ft_add_malloc(size_t size);
+t_block				*ft_create_blocks(size_t type);
 
 #endif

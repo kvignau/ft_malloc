@@ -41,8 +41,11 @@ char				*ft_itoa_base_imax(intmax_t n, size_t base)
 	str = ft_strnew(len);
 	if (!str)
 		return (NULL);
-	if (base == 10 && n < 0 && (str[0] = '-'))
+	if (base == 10 && n < 0)
+	{
+		str[0] = '-';
 		n = -n;
+	}
 	str[len] = '\0';
 	if (n == 0)
 		str[0] = '0';

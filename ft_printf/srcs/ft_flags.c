@@ -26,8 +26,7 @@ int			split_options(char const *format, int *x,
 	if (format[*x] == '.')
 	{
 		*x = *x + 1;
-		if (format[*x] != '*')
-			options->precision = ft_atoi(format + *x);
+		options->precision = ft_atoi(format + *x);
 	}
 	while (format[*x] >= '0' && format[*x] <= '9')
 		(*x)++;
@@ -49,10 +48,6 @@ char		*ft_action(va_list arguments, t_options *options, int ret)
 
 	arg = va_arg(arguments, void *);
 	test = functions[ret];
-	if (options->flags.fasterisk == 1)
-		options->flags.width = va_arg(arguments, int);
-	if (options->pasterisk == 1)
-		options->precision = va_arg(arguments, int);
 	return (test(arg, options));
 }
 

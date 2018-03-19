@@ -18,6 +18,7 @@ O_DIR_PRINTF = obj/
 LIBFT = Libft/
 
 FLAGS = -Wall -Wextra -Werror
+CC = gcc
 
 C_FILES_PRINTF = bonus.c
 C_FILES_PRINTF += ft_check.c

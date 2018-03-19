@@ -14,7 +14,6 @@
 
 void		ft_init_options(t_options *options)
 {
-	options->flags.fasterisk = 0;
 	options->flags.width = 0;
 	options->flags.zero = 0;
 	options->flags.moins = 0;
@@ -27,7 +26,6 @@ void		ft_init_options(t_options *options)
 	options->modifier.l = 0;
 	options->modifier.j = 0;
 	options->modifier.z = 0;
-	options->pasterisk = 0;
 	options->precision = -1;
 	options->specifier = '\0';
 }
@@ -54,8 +52,6 @@ void		ft_putflag(char const flag, t_options *options)
 		options->flags.moins = 1;
 	else if (flag == '0')
 		options->flags.zero = 1;
-	else if (flag == '*')
-		options->flags.fasterisk = 1;
 }
 
 int			get_modifier(char const *format, t_options *options, int x)

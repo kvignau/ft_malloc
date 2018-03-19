@@ -6,7 +6,7 @@
 /*   By: kvignau <kvignau@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/13 16:17:02 by kvignau           #+#    #+#             */
-/*   Updated: 2016/03/23 19:25:36 by kvignau          ###   ########.fr       */
+/*   Updated: 2018/03/16 11:28:00 by kvignau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define BOLD_LIGHT_GREY "\e[1;37m"
 # define END "\033[0m"
 # define SPECIFIERS "sdiocpxXDOuUCSb%"
-# define FLAGS "#0-+ *"
+# define FLAGS "#0-+ "
 
 typedef struct	s_modifier
 {
@@ -53,7 +53,6 @@ typedef struct	s_modifier
 
 typedef struct	s_flags
 {
-	int			fasterisk;
 	int			width;
 	int			zero;
 	int			hashtag;
@@ -66,7 +65,6 @@ typedef struct	s_options
 {
 	t_flags		flags;
 	t_modifier	modifier;
-	int			pasterisk;
 	int			precision;
 	size_t		length_wchar;
 	char		specifier;
