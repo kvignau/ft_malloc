@@ -17,7 +17,7 @@ C_DIR_MALLOC = srcs/
 O_DIR_MALLOC = obj/
 PRINTF = ft_printf/
 
-FLAGS = -Wall -Wextra -Werror #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 
 C_FILES_MALLOC = ft_malloc.c
 C_FILES_MALLOC += ft_free.c
