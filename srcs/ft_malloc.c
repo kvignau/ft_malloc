@@ -73,7 +73,7 @@ void			*ft_find_space(t_block *block, size_t size)
 	return (NULL);
 }
 
-void			*ft_malloc(size_t size)
+void			*malloc(size_t size)
 {
 	static int	init_lst = 0;
 	void		*ptr;
@@ -105,35 +105,35 @@ int				main(void)
 	void		*ptr3;
 	void		*ptr4;
 
-	ptr = ft_malloc(6);
+	ptr = malloc(6);
 	ft_strcpy(ptr, "qwrer\0");
 	ft_printf("%s\n", ptr);
 
-	ptr1 = ft_malloc(100);
+	ptr1 = malloc(100);
 	ft_strcpy(ptr1, "ACECXD C\0");
 	ft_printf("%s\n", ptr1);
 
-	ptr2 = ft_malloc(500);
+	ptr2 = malloc(500);
 	ft_strcpy(ptr2, "Y\0");
 	ft_printf("%s\n", ptr2);
 	// ft_free(ptr2);
 
-	ptr1 = ft_realloc(ptr1, 1400);
+	ptr1 = realloc(ptr1, 1400);
 	ft_strcpy(ptr1, "MON REALLOC\0");
 	ft_printf("\n\n%s\n\n", ptr1);
 
-	ptr3 = ft_malloc(102171);
+	ptr3 = malloc(102171);
 	ft_strcpy(ptr3, "YO\0");
 	ft_printf("%s\n", ptr3);
 
 	// ft_free(ptr1);
 	// ft_printf("\nAFTER FREE -> %p\n", ptr1);
 
-	ptr4 = ft_malloc(102150);
+	ptr4 = malloc(102150);
 	ft_strcpy(ptr4, "YOLOOOO\0");
 	ft_printf("%s\n", ptr4);
-	
-	ft_free(ptr3);
+
+	free(ptr3);
 
 	show_alloc_mem();
 	return (0);

@@ -27,9 +27,9 @@ static void		*find_tiny_ptr(void *ptr, size_t size)
 			{
 				if (tmp->malloc->size >= size)
 					return (ptr);
-				save = ft_malloc(size);
+				save = malloc(size);
 				save = ft_memcpy(save, tmp->malloc->ptr, tmp->malloc->size);
-				ft_free(tmp->malloc->ptr);
+				free(tmp->malloc->ptr);
 				return (save);
 			}
 			tmp->malloc = tmp->malloc->next;
@@ -54,9 +54,9 @@ static void		*find_small_ptr(void *ptr, size_t size)
 			{
 				if (tmp->malloc->size >= size)
 					return (ptr);
-				save = ft_malloc(size);
+				save = malloc(size);
 				save = ft_memcpy(save, tmp->malloc->ptr, tmp->malloc->size);
-				ft_free(tmp->malloc->ptr);
+				free(tmp->malloc->ptr);
 				return (save);
 			}
 			tmp->malloc = tmp->malloc->next;
@@ -81,9 +81,9 @@ static void		*find_large_ptr(void *ptr, size_t size)
 			{
 				if (tmp->malloc->size >= size)
 					return (ptr);
-				save = ft_malloc(size);
+				save = malloc(size);
 				save = ft_memcpy(save, tmp->malloc->ptr, tmp->malloc->size);
-				ft_free(tmp->malloc->ptr);
+				free(tmp->malloc->ptr);
 				return (save);
 			}
 			tmp->malloc = tmp->malloc->next;
@@ -93,7 +93,7 @@ static void		*find_large_ptr(void *ptr, size_t size)
 	return (NULL);
 }
 
-void			*ft_realloc(void *ptr, size_t size)
+void			*realloc(void *ptr, size_t size)
 {
 	void		*ret;
 

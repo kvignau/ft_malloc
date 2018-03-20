@@ -52,9 +52,9 @@ typedef struct		s_alltypes
 
 t_alltypes			g_lst_types;
 
-void				ft_free(void *ptr);
-void				*ft_malloc(size_t size);
-void				*ft_realloc(void *ptr, size_t size);
+void				free(void *ptr);
+void				*malloc(size_t size);
+void				*realloc(void *ptr, size_t size);
 
 void				ft_free_empty(t_block *block, size_t type);
 void				*ft_add_large(size_t size);

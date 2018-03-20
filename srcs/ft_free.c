@@ -98,7 +98,7 @@ static int		ft_free_large(void *ptr)
 	return (0);
 }
 
-void			ft_free(void *ptr)
+void			free(void *ptr)
 {
 	if (ptr == NULL)
 		return ;
