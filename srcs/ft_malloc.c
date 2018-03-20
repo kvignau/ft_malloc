@@ -25,7 +25,7 @@ t_block			*ft_create_blocks(size_t type)
 	block->unused_end_size = 0;
 	block->last = 1;
 	block->next = NULL;
-	block->prev = NULL;
+	// block->prev = NULL;
 
 	block->malloc = (t_malloc *)(block + 1);
 	block->first = block->malloc;
@@ -45,7 +45,64 @@ t_block			*ft_create_blocks(size_t type)
 	return (block);
 }
 
-void			*ft_add_malloc(size_t size)
+void			*ft_add_large(size_t size)
+{
+	t_block		*block;
+
+	block = NULL;
+	if (!lst_types.large)
+	{
+		lst_types.large = ft_create_blocks(size + sizeof(t_malloc) + sizeof(t_block));
+		if (!lst_types.large)
+			return (NULL);
+		// ptr = ft_find_space(lst_types.large, size);
+		ft_putstr("\n\nlargeLLLLLLLLLLLLLLL\n\n");
+		return (lst_types.large->malloc->ptr);
+	}
+	block = lst_types.large;
+	while (block->next)
+		block = block->next;
+	block->next = ft_create_blocks(size + sizeof(t_malloc) + sizeof(t_block));
+	if (!block->next)
+			return (NULL);
+		// ptr = ft_find_space(lst_types.large, size);
+	ft_putstr("\n\nlargeLLLLLLLLLLLLLLL 2\n\n");
+	return (lst_types.large->malloc->ptr);
+}
+
+void			*ft_add_small(size_t size)
+{
+	t_block		*block;
+	void		*ptr;
+
+	block = NULL;
+	if (!lst_types.small)
+	{
+		lst_types.small = ft_create_blocks(SMALL);
+		if (!lst_types.small)
+			return (NULL);
+		ptr = ft_find_space(lst_types.small, size);
+		ft_putstr("\n\nSMALLLLLLLLLLLLLLLLL\n\n");
+		return (ptr);
+	}
+	block = lst_types.small;
+	while (block)
+	{
+		block->malloc = block->first;
+		ft_printf("\n\nBOUCLE\n\n");
+		if ((ptr = ft_find_space(block, size)))
+			return ptr;
+		ft_printf("\n\nLE POINTEUR PTR %p\n\n", ptr);
+		if (block->last == 1)
+			break;
+		block = block->next;
+	}
+	block->last = 0;
+	block->next = ft_create_blocks(SMALL);
+	return (ft_find_space(block->next, size));
+}
+
+void			*ft_add_tiny(size_t size)
 {
 	t_block		*block;
 	void		*ptr;
@@ -135,6 +192,7 @@ void			*ft_malloc(size_t size)
 	static int	init_lst = 0;
 	void		*ptr;
 
+	ptr = NULL;
 	if (init_lst == 0)
 	{
 		lst_types.tiny = NULL;
@@ -142,7 +200,12 @@ void			*ft_malloc(size_t size)
 		lst_types.large = NULL;
 		init_lst++;
 	}
-	ptr = ft_add_malloc(size);
+	if (size < (size_t)TINY)
+		ptr = ft_add_tiny(size);
+	else if (size < (size_t)SMALL)
+		ptr = ft_add_small(size);
+	else
+		ptr = ft_add_large(size);
 	return (ptr);
 }
 
@@ -168,12 +231,12 @@ int				main(void)
 	ft_printf("%s\n", ptr1);
 	ft_printf("POINTEUR FINAL 1 -> %p\n", ptr1);
 
-	ptr2 = ft_malloc(500);
+	ptr2 = ft_malloc(1025);
 	ft_strcpy(ptr2, "Y\0");
 	ft_printf("%s\n", ptr2);
 	ft_printf("POINTEUR FINAL 2 -> %p\n", ptr2);
 	
-	ptr3 = ft_malloc(3);
+	ptr3 = ft_malloc(102171);
 	ft_strcpy(ptr3, "YO\0");
 	ft_printf("%s\n", ptr3);
 	ft_printf("POINTEUR FINAL 3 -> %p\n", ptr3);

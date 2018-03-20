@@ -46,7 +46,7 @@ typedef struct 	s_block
 	// TO TEST
 	// t_malloc		*lastmalloc;
 	struct s_block	*next;
-	struct s_block	*prev;
+	// struct s_block	*prev;
 }					t_block;
 
 typedef struct 	s_alltypes
