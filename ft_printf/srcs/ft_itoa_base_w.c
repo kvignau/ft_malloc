@@ -53,10 +53,8 @@ char			*ft_itoa_base_w(wchar_t n, size_t base)
 	{
 		while (n != 0)
 		{
-			if (base > 10 && n % base > 9)
-				str[--len] = (n % base) + ('a' - 10);
-			else
-				str[--len] = (n % base) + 48;
+			str[--len] = (base > 10 && n % base > 9)
+				? (n % base) + ('a' - 10) : (n % base) + 48;
 			n = n / base;
 		}
 	}

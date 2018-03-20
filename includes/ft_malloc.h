@@ -18,16 +18,13 @@
 # include <sys/mman.h>
 # include "../ft_printf/includes/ft_printf.h"
 
-// TO DELETE
-# include <stdio.h>
-
 # define MAPS (MAP_ANON | MAP_PRIVATE)
 # define PROTS (PROT_READ | PROT_WRITE)
 
 # define SMALL getpagesize()
 # define TINY (SMALL / 4)
 
-typedef struct 		s_malloc
+typedef struct		s_malloc
 {
 	int				last;
 	int				used;
@@ -36,7 +33,7 @@ typedef struct 		s_malloc
 	struct s_malloc	*next;
 }					t_malloc;
 
-typedef struct 	s_block
+typedef struct		s_block
 {
 	size_t			unused_end_size;
 	int				last;
@@ -46,14 +43,14 @@ typedef struct 	s_block
 	struct s_block	*prev;
 }					t_block;
 
-typedef struct 	s_alltypes
+typedef struct		s_alltypes
 {
 	t_block			*tiny;
 	t_block			*small;
 	t_block			*large;
 }					t_alltypes;
 
-t_alltypes			lst_types; 
+t_alltypes			g_lst_types;
 
 void				ft_free(void *ptr);
 void				*ft_malloc(size_t size);
@@ -65,5 +62,7 @@ void				*ft_add_small(size_t size);
 void				*ft_add_tiny(size_t size);
 void				*ft_find_space(t_block *block, size_t size);
 t_block				*ft_create_blocks(size_t type);
+
+void				show_alloc_mem();
 
 #endif

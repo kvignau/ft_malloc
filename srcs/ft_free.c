@@ -26,7 +26,7 @@ static int		ft_free_tiny(void *ptr)
 	int			i;
 
 	find = 0;
-	tmp = lst_types.tiny;
+	tmp = g_lst_types.tiny;
 	while (tmp)
 	{
 		i = 0;
@@ -39,7 +39,7 @@ static int		ft_free_tiny(void *ptr)
 			tmp->malloc = tmp->malloc->next;
 		}
 		if (find)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	if (!i)
@@ -54,7 +54,7 @@ static int		ft_free_small(void *ptr)
 	int			i;
 
 	find = 0;
-	tmp = lst_types.small;
+	tmp = g_lst_types.small;
 	while (tmp)
 	{
 		i = 0;
@@ -67,7 +67,7 @@ static int		ft_free_small(void *ptr)
 			tmp->malloc = tmp->malloc->next;
 		}
 		if (find)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	if (!i)
@@ -79,7 +79,7 @@ static int		ft_free_large(void *ptr)
 {
 	t_block		*tmp;
 
-	tmp = lst_types.large;
+	tmp = g_lst_types.large;
 	while (tmp)
 	{
 		if (tmp->malloc->ptr == ptr)
@@ -87,7 +87,7 @@ static int		ft_free_large(void *ptr)
 			if (tmp->prev)
 				tmp->prev->next = tmp->next;
 			else
-				lst_types.large = tmp->next;
+				g_lst_types.large = tmp->next;
 			if (tmp->next)
 				tmp->next->prev = tmp->prev;
 			munmap(tmp, tmp->malloc->size + sizeof(t_malloc) + sizeof(t_block));

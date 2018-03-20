@@ -23,6 +23,7 @@ C_FILES_MALLOC = ft_malloc.c
 C_FILES_MALLOC += ft_free.c
 C_FILES_MALLOC += ft_realloc.c
 C_FILES_MALLOC += ft_lib_malloc.c
+C_FILES_MALLOC += ft_display_malloc.c
 O_FILES_MALLOC = $(addprefix $(O_DIR_MALLOC),$(C_FILES_MALLOC:.c=.o))
 
 all: $(NAME)

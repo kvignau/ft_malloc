@@ -17,7 +17,7 @@ static void		*find_tiny_ptr(void *ptr, size_t size)
 	t_block		*tmp;
 	void		*save;
 
-	tmp = lst_types.tiny;
+	tmp = g_lst_types.tiny;
 	while (tmp)
 	{
 		tmp->malloc = tmp->first;
@@ -44,7 +44,7 @@ static void		*find_small_ptr(void *ptr, size_t size)
 	t_block		*tmp;
 	void		*save;
 
-	tmp = lst_types.small;
+	tmp = g_lst_types.small;
 	while (tmp)
 	{
 		tmp->malloc = tmp->first;
@@ -71,7 +71,7 @@ static void		*find_large_ptr(void *ptr, size_t size)
 	t_block		*tmp;
 	void		*save;
 
-	tmp = lst_types.large;
+	tmp = g_lst_types.large;
 	while (tmp)
 	{
 		tmp->malloc = tmp->first;
@@ -93,9 +93,9 @@ static void		*find_large_ptr(void *ptr, size_t size)
 	return (NULL);
 }
 
-void		*ft_realloc(void *ptr, size_t size)
+void			*ft_realloc(void *ptr, size_t size)
 {
-	void	*ret;
+	void		*ret;
 
 	ret = NULL;
 	if (!ptr)
