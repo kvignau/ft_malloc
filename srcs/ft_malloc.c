@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvignau <kvignau@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kvignau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/13 15:47:44 by kvignau           #+#    #+#             */
-/*   Updated: 2016/03/03 13:19:52 by kvignau          ###   ########.fr       */
+/*   Created: 2018/03/20 17:45:26 by kvignau           #+#    #+#             */
+/*   Updated: 2018/03/20 17:45:29 by kvignau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,28 +108,23 @@ int				main(void)
 	ptr = ft_malloc(6);
 	ft_strcpy(ptr, "qwrer\0");
 	ft_printf("%s\n", ptr);
-	ft_printf("POINTEUR FINAL -> %p\n", ptr);
 
 	ptr1 = ft_malloc(100);
 	ft_strcpy(ptr1, "ACECXD C\0");
 	ft_printf("%s\n", ptr1);
-	ft_printf("POINTEUR FINAL 1 -> %p\n", ptr1);
 
 	ptr2 = ft_malloc(500);
 	ft_strcpy(ptr2, "Y\0");
 	ft_printf("%s\n", ptr2);
-	ft_printf("POINTEUR FINAL 2 -> %p\n", ptr2);
 	// ft_free(ptr2);
 
 	ptr1 = ft_realloc(ptr1, 1400);
 	ft_strcpy(ptr1, "MON REALLOC\0");
 	ft_printf("\n\n%s\n\n", ptr1);
-	ft_printf("POINTEUR FINAL 1 -> %p\n", ptr1);
 
 	ptr3 = ft_malloc(102171);
 	ft_strcpy(ptr3, "YO\0");
 	ft_printf("%s\n", ptr3);
-	ft_printf("POINTEUR FINAL 3 -> %p\n", ptr3);
 
 	// ft_free(ptr1);
 	// ft_printf("\nAFTER FREE -> %p\n", ptr1);
@@ -137,7 +132,7 @@ int				main(void)
 	ptr4 = ft_malloc(102150);
 	ft_strcpy(ptr4, "YOLOOOO\0");
 	ft_printf("%s\n", ptr4);
-	ft_printf("POINTEUR FINAL 4 -> %p\n", ptr4);
+	
 	ft_free(ptr3);
 
 	show_alloc_mem();
