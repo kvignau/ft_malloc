@@ -34,7 +34,6 @@ typedef struct 		s_malloc
 	size_t			size;
 	void			*ptr;
 	struct s_malloc	*next;
-	// struct s_malloc	*prev;
 }					t_malloc;
 
 typedef struct 	s_block
@@ -43,10 +42,8 @@ typedef struct 	s_block
 	int				last;
 	t_malloc		*malloc;
 	t_malloc		*first;
-	// TO TEST
-	// t_malloc		*lastmalloc;
 	struct s_block	*next;
-	// struct s_block	*prev;
+	struct s_block	*prev;
 }					t_block;
 
 typedef struct 	s_alltypes
@@ -58,12 +55,15 @@ typedef struct 	s_alltypes
 
 t_alltypes			lst_types; 
 
-void				free(void *ptr);
+void				ft_free(void *ptr);
 void				*ft_malloc(size_t size);
-void				*realloc(void *ptr, size_t size);
+void				*ft_realloc(void *ptr, size_t size);
 
-void				*ft_find_space(t_block *malloc, size_t size);
-void				*ft_add_malloc(size_t size);
+void				ft_free_empty(t_block *block, size_t type);
+void				*ft_add_large(size_t size);
+void				*ft_add_small(size_t size);
+void				*ft_add_tiny(size_t size);
+void				*ft_find_space(t_block *block, size_t size);
 t_block				*ft_create_blocks(size_t type);
 
 #endif
