@@ -22,7 +22,7 @@ t_block			*ft_create_blocks(size_t type)
 		return (NULL);
 	}
 
-	block->unused_end_size = (type * 100) - sizeof(t_malloc) - sizeof(t_block);
+	block->unused_end_size = 0;
 	block->last = 1;
 	block->next = NULL;
 	block->prev = NULL;
@@ -31,7 +31,8 @@ t_block			*ft_create_blocks(size_t type)
 	block->first = block->malloc;
 	block->malloc->used = 0;
 	block->malloc->last = 1;
-	block->malloc->size = 0;
+	block->malloc->size = (type * 100) - (sizeof(t_malloc) + sizeof(t_block));
+	ft_printf("\nTOTAL SIZE: %zu\n", block->malloc->size);
 	block->malloc->ptr = block->malloc + 1;
 	block->malloc->next = NULL;
 	printf("UNUSED SPACE BEGIN -> %zu\n", block->unused_end_size);
@@ -76,13 +77,14 @@ void			*ft_add_malloc(size_t size)
 	return (ft_find_space(block->next, size));
 }
 
-// size_t			ft_mem_align(t_malloc )
+// size_t			ft_mem_align(size_t size)
 // {
-
+// 	return (size + (16 - size % 16));
 // }
 
 void			*ft_find_space(t_block *block, size_t size)
 {
+	size = size + (16 - size % 16);
 	while (block->malloc) {
 		printf("\n\nDANS WHILE\n\n");
 		if (block->malloc->used == 0 && block->malloc->size >= size) {
@@ -95,22 +97,33 @@ void			*ft_find_space(t_block *block, size_t size)
 			return (block->malloc->ptr);
 		}
 		printf("UNUSED SPACE -> %zu\n", block->unused_end_size);
-		printf("NEEDED SIZE -> %zu\n", size + sizeof(t_malloc));
+		printf("NEEDED SIZE -> %zu\n", size);
 		printf("FIRST CONDITION -> %i\n", block->malloc->last == 1);
-		printf("SECOND CONDITION -> %i\n", block->unused_end_size >= size + sizeof(t_malloc));
-		// size = ft_mem_align();
-		if (block->malloc->last == 1 && block->unused_end_size >= size + sizeof(t_malloc))
+		printf("SECOND CONDITION -> %i\n", block->unused_end_size >= size);
+
+		ft_printf("\n\n\nSIZE DEBUT -> %zu, ADRESSE DEBUT -> %p\n\n\n", size, block->malloc + size);
+
+		
+		// size = ft_mem_align(size + sizeof(t_malloc));
+
+		ft_printf("\n\n\nALIGNEMENT MOMOIRE DE OUF %zu, ADRESSE FIN -> %p\n\n\n", size, block->malloc + size);
+
+		if (block->malloc->last == 1)
 		{
-			block->unused_end_size = block->unused_end_size - (size + sizeof(t_malloc));
-		printf("UNUSED SPACE AFTER -> %zu\n", block->unused_end_size);
-			block->malloc->last = 0;
-			block->malloc->next = block->malloc->ptr + block->malloc->size;
-			block->malloc->next->used = 1;
-			block->malloc->next->last = 1;
-			block->malloc->next->size = size;
-			block->malloc->next->ptr = (t_malloc *)block->malloc->next + 1;
-			block->malloc->next->next = NULL;
-			return (block->malloc->next->ptr);
+			// size += sizeof(t_malloc);
+			if (block->unused_end_size >= size + sizeof(t_malloc))
+			{
+				block->unused_end_size = block->unused_end_size - (size + sizeof(t_malloc));
+			printf("UNUSED SPACE AFTER -> %zu\n", block->unused_end_size);
+				block->malloc->last = 0;
+				block->malloc->next = block->malloc->ptr + block->malloc->size;
+				block->malloc->next->used = 1;
+				block->malloc->next->last = 1;
+				block->malloc->next->size = size;
+				block->malloc->next->ptr = (t_malloc *)block->malloc->next + 1;
+				block->malloc->next->next = NULL;
+				return (block->malloc->next->ptr);
+			}
 		}
 		block->malloc = block->malloc->next;
 	}
