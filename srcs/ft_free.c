@@ -42,7 +42,7 @@ static int		ft_free_tiny(void *ptr)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!i)
+	if (!i && tmp->prev != NULL)
 		ft_free_empty(tmp, TINY);
 	return (find);
 }
@@ -70,7 +70,7 @@ static int		ft_free_small(void *ptr)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!i)
+	if (!i && tmp->prev != NULL)
 		ft_free_empty(tmp, SMALL);
 	return (find);
 }

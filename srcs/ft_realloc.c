@@ -99,7 +99,9 @@ void			*realloc(void *ptr, size_t size)
 
 	ret = NULL;
 	if (!ptr)
-		return (ret);
+		return (malloc(size));
+	if (size <= 0)
+		return (NULL);
 	ret = find_tiny_ptr(ptr, size);
 	if (!ret)
 		ret = find_small_ptr(ptr, size);

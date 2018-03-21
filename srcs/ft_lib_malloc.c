@@ -54,10 +54,10 @@ void			*ft_add_small(size_t size)
 	block = NULL;
 	if (!g_lst_types.small)
 	{
-		g_lst_types.small = ft_create_blocks(SMALL);
-		if (!g_lst_types.small)
-			return (NULL);
-		return (ft_find_space(g_lst_types.small, size));
+		g_lst_types.small =
+		ft_create_blocks((SMALL + sizeof(t_malloc) + sizeof(t_block)) * 100);
+		return (!g_lst_types.small) ? NULL
+		: ft_find_space(g_lst_types.small, size);
 	}
 	block = g_lst_types.small;
 	while (block)
@@ -70,7 +70,7 @@ void			*ft_add_small(size_t size)
 		block = block->next;
 	}
 	block->last = 0;
-	block->next = ft_create_blocks(SMALL);
+	block->next = ft_create_blocks(SMALL + sizeof(t_malloc) + sizeof(t_block));
 	block->next->prev = block;
 	return (ft_find_space(block->next, size));
 }
@@ -83,10 +83,10 @@ void			*ft_add_tiny(size_t size)
 	block = NULL;
 	if (!g_lst_types.tiny)
 	{
-		g_lst_types.tiny = ft_create_blocks(TINY);
-		if (!g_lst_types.tiny)
-			return (NULL);
-		return (ft_find_space(g_lst_types.tiny, size));
+		g_lst_types.tiny =
+		ft_create_blocks((TINY + sizeof(t_malloc) + sizeof(t_block)) * 100);
+		return (!g_lst_types.tiny) ? NULL
+		: ft_find_space(g_lst_types.tiny, size);
 	}
 	block = g_lst_types.tiny;
 	while (block)
@@ -99,7 +99,7 @@ void			*ft_add_tiny(size_t size)
 		block = block->next;
 	}
 	block->last = 0;
-	block->next = ft_create_blocks(TINY);
+	block->next = ft_create_blocks(TINY + sizeof(t_malloc) + sizeof(t_block));
 	block->next->prev = block;
 	return (ft_find_space(block->next, size));
 }

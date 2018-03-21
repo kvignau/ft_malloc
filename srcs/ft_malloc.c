@@ -16,7 +16,7 @@ t_block			*ft_create_blocks(size_t type)
 {
 	t_block		*block;
 
-	block = (t_block *)mmap(0, type * 100, PROTS, MAPS, -1, 0);
+	block = (t_block *)mmap(0, type, PROTS, MAPS, -1, 0);
 	if (block == NULL)
 		return (NULL);
 	block->unused_end_size = 0;
@@ -27,7 +27,7 @@ t_block			*ft_create_blocks(size_t type)
 	block->first = block->malloc;
 	block->malloc->used = 0;
 	block->malloc->last = 1;
-	block->malloc->size = (type * 100) - (sizeof(t_malloc) + sizeof(t_block));
+	block->malloc->size = type - (sizeof(t_malloc) + sizeof(t_block));
 	block->malloc->ptr = block->malloc + 1;
 	block->malloc->next = NULL;
 	return (block);
