@@ -10,7 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_malloc
+NAME = libft_malloc
+
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
 H_DIR = includes/
 C_DIR_MALLOC = srcs/
@@ -30,7 +34,8 @@ all: $(NAME)
 
 $(NAME): $(O_FILES_MALLOC)
 	make -C $(PRINTF)
-	$(CC) $(FLAGS) -o $(NAME) $(O_FILES_MALLOC) -L $(PRINTF) -lftprintf
+	$(CC) $(FLAGS) -shared -o $(NAME)_$(HOSTTYPE).so $(O_FILES_MALLOC) -L $(PRINTF) -lftprintf
+	@ln -sf $(NAME)_$(HOSTTYPE).so "libft_malloc.so"
 
 
 $(O_FILES_MALLOC): $(O_DIR_MALLOC)%.o: $(C_DIR_MALLOC)%.c
@@ -43,7 +48,7 @@ clean:
 
 fclean: clean
 	make -C $(PRINTF) fclean
-	@rm -rf $(NAME) 2> /dev/null || echo "" > /dev/null
+	@rm -f $(NAME)_$(HOSTTYPE).so "libft_malloc.so" 2> /dev/null || echo "" > /dev/null
 
 re: fclean all
 
