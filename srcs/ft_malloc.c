@@ -12,7 +12,7 @@
 
 #include "ft_malloc.h"
 
-t_block			*ft_create_blocks(size_t type)
+t_block			*crt_block(size_t type)
 {
 	t_block		*block;
 

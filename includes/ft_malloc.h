@@ -61,7 +61,7 @@ void				*ft_add_large(size_t size);
 void				*ft_add_small(size_t size);
 void				*ft_add_tiny(size_t size);
 void				*ft_find_space(t_block *block, size_t size);
-t_block				*ft_create_blocks(size_t type);
+t_block				*crt_block(size_t type);
 
 void				show_alloc_mem();
 

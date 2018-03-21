@@ -28,7 +28,7 @@ void			*ft_add_large(size_t size)
 	if (!g_lst_types.large)
 	{
 		g_lst_types.large =
-			ft_create_blocks(size + sizeof(t_malloc) + sizeof(t_block));
+			crt_block(size + sizeof(t_malloc) + sizeof(t_block));
 		if (!g_lst_types.large)
 			return (NULL);
 		g_lst_types.large->malloc->used = 1;
@@ -38,7 +38,7 @@ void			*ft_add_large(size_t size)
 	while (block->next)
 		block = block->next;
 	block->next =
-		ft_create_blocks(size + sizeof(t_malloc) + sizeof(t_block));
+		crt_block(size + sizeof(t_malloc) + sizeof(t_block));
 	if (!block->next)
 		return (NULL);
 	block->next->prev = block;
@@ -55,7 +55,7 @@ void			*ft_add_small(size_t size)
 	if (!g_lst_types.small)
 	{
 		g_lst_types.small =
-		ft_create_blocks((SMALL + sizeof(t_malloc) + sizeof(t_block)) * 100);
+		crt_block((SMALL + sizeof(t_malloc) + sizeof(t_block)) * 100);
 		return (!g_lst_types.small) ? NULL
 		: ft_find_space(g_lst_types.small, size);
 	}
@@ -70,7 +70,7 @@ void			*ft_add_small(size_t size)
 		block = block->next;
 	}
 	block->last = 0;
-	block->next = ft_create_blocks(SMALL + sizeof(t_malloc) + sizeof(t_block));
+	block->next = crt_block(SMALL + sizeof(t_malloc) + sizeof(t_block) * 100);
 	block->next->prev = block;
 	return (ft_find_space(block->next, size));
 }
@@ -84,7 +84,7 @@ void			*ft_add_tiny(size_t size)
 	if (!g_lst_types.tiny)
 	{
 		g_lst_types.tiny =
-		ft_create_blocks((TINY + sizeof(t_malloc) + sizeof(t_block)) * 100);
+		crt_block((TINY + sizeof(t_malloc) + sizeof(t_block)) * 100);
 		return (!g_lst_types.tiny) ? NULL
 		: ft_find_space(g_lst_types.tiny, size);
 	}
@@ -99,7 +99,7 @@ void			*ft_add_tiny(size_t size)
 		block = block->next;
 	}
 	block->last = 0;
-	block->next = ft_create_blocks(TINY + sizeof(t_malloc) + sizeof(t_block));
+	block->next = crt_block(TINY + sizeof(t_malloc) + sizeof(t_block) * 100);
 	block->next->prev = block;
 	return (ft_find_space(block->next, size));
 }
