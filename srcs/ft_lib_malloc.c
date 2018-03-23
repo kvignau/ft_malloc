@@ -12,6 +12,16 @@
 
 #include "ft_malloc.h"
 
+size_t			ft_align_memory(size_t size)
+{
+	int			add;
+
+	add = size % 16;
+	if (add)
+		return (size = size + (16 - add));
+	return (size);
+}
+
 void			ft_free_empty(t_block *block, size_t type)
 {
 	if (block->next)
@@ -25,6 +35,7 @@ void			*ft_add_large(size_t size)
 	t_block		*block;
 
 	block = NULL;
+	size = ft_align_memory(size);
 	if (!g_lst_types.large)
 	{
 		g_lst_types.large =
@@ -41,6 +52,7 @@ void			*ft_add_large(size_t size)
 		crt_block(size + sizeof(t_malloc) + sizeof(t_block));
 	if (!block->next)
 		return (NULL);
+	block->last = 0;
 	block->next->prev = block;
 	block->next->malloc->used = 1;
 	return (block->next->malloc->ptr);
@@ -70,7 +82,7 @@ void			*ft_add_small(size_t size)
 		block = block->next;
 	}
 	block->last = 0;
-	block->next = crt_block(SMALL + sizeof(t_malloc) + sizeof(t_block) * 100);
+	block->next = crt_block((SMALL + sizeof(t_malloc) + sizeof(t_block)) * 100);
 	block->next->prev = block;
 	return (ft_find_space(block->next, size));
 }
@@ -99,7 +111,7 @@ void			*ft_add_tiny(size_t size)
 		block = block->next;
 	}
 	block->last = 0;
-	block->next = crt_block(TINY + sizeof(t_malloc) + sizeof(t_block) * 100);
+	block->next = crt_block((TINY + sizeof(t_malloc) + sizeof(t_block)) * 100);
 	block->next->prev = block;
 	return (ft_find_space(block->next, size));
 }

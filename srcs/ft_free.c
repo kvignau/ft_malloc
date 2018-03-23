@@ -6,7 +6,7 @@
 /*   By: kvignau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 12:16:15 by kvignau           #+#    #+#             */
-/*   Updated: 2018/03/20 12:16:17 by kvignau          ###   ########.fr       */
+/*   Updated: 2018/03/21 18:25:45 by kvignau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_block			*ft_free_node(t_block *block, int *find)
 	return (block);
 }
 
-static int		ft_free_tiny(void *ptr)
+int				ft_free_tiny(void *ptr)
 {
 	t_block		*tmp;
 	int			find;
@@ -42,12 +42,12 @@ static int		ft_free_tiny(void *ptr)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!i && tmp->prev != NULL)
+	if (!i && tmp && tmp->prev != NULL)
 		ft_free_empty(tmp, TINY);
 	return (find);
 }
 
-static int		ft_free_small(void *ptr)
+int				ft_free_small(void *ptr)
 {
 	t_block		*tmp;
 	int			find;
@@ -70,19 +70,19 @@ static int		ft_free_small(void *ptr)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!i && tmp->prev != NULL)
+	if (!i && tmp && tmp->prev != NULL)
 		ft_free_empty(tmp, SMALL);
 	return (find);
 }
 
-static int		ft_free_large(void *ptr)
+int				ft_free_large(void *ptr)
 {
 	t_block		*tmp;
 
 	tmp = g_lst_types.large;
 	while (tmp)
 	{
-		if (tmp->malloc->ptr == ptr)
+		if (tmp->malloc && tmp->malloc->ptr == ptr)
 		{
 			if (tmp->prev)
 				tmp->prev->next = tmp->next;

@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/mman.h>
-# include "../ft_printf/includes/ft_printf.h"
+# include "../libft/includes/libft.h"
 
 # define MAPS (MAP_ANON | MAP_PRIVATE)
 # define PROTS (PROT_READ | PROT_WRITE)
@@ -62,7 +62,12 @@ void				*ft_add_small(size_t size);
 void				*ft_add_tiny(size_t size);
 void				*ft_find_space(t_block *block, size_t size);
 t_block				*crt_block(size_t type);
+size_t				ft_align_memory(size_t size);
 
 void				show_alloc_mem();
+
+int					ft_free_tiny(void *ptr);
+int					ft_free_small(void *ptr);
+int					ft_free_large(void *ptr);
 
 #endif

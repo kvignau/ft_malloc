@@ -46,7 +46,7 @@ static void		ft_create_malloc(t_malloc **malloc, size_t size)
 
 void			*ft_find_space(t_block *block, size_t size)
 {
-	size = size + (16 - size % 16);
+	size = ft_align_memory(size);
 	while (block->malloc)
 	{
 		if (block->malloc->used == 0 && block->malloc->size >= size)
@@ -88,9 +88,9 @@ void			*malloc(size_t size)
 		g_lst_types.large = NULL;
 		init_lst++;
 	}
-	if (size < (size_t)TINY)
+	if (size <= (size_t)TINY)
 		ptr = ft_add_tiny(size);
-	else if (size < (size_t)SMALL)
+	else if (size <= (size_t)SMALL)
 		ptr = ft_add_small(size);
 	else
 		ptr = ft_add_large(size);
